@@ -1,0 +1,30 @@
+GOAT?!
+<br>
+<br>
+<select id="qb-drop">
+  <option value="Cam Newton">Cam Newton</option>
+  <option value="Tom Brady">Tom Brady</option>
+  <option value="Jay Cutler">Jay Cutler</option>
+</select>
+<input type="submit" value="Send" id="submit-guess">
+<br>
+<br>
+
+<div id="response">
+
+</div>
+
+<script>
+    document.getElementById("submit-guess").addEventListener("click", function() {
+      let drop = document.getElementById("qb-drop");
+      let guess = drop.options[drop.selectedIndex].value;
+      fetch('http://localhost:8080/foo', {
+        method: 'post',
+        body: JSON.stringify({guess: guess})
+      }).then(function(response) {
+        return response.json()
+      }).then(function(data) {
+        document.getElementById("response").innerText = data.Answer
+      })
+    });
+</script>
