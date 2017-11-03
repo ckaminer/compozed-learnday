@@ -17,7 +17,7 @@ func (f fooHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
 		cash := struct {
-			Answer string
+			Message string
 		} {
 			"This was a GET, cuz",
 		}
@@ -36,14 +36,14 @@ func (f fooHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		defer r.Body.Close()
 
 		cash := struct {
-			Answer string
+			Message string
 		} {
 			"UHHH...YUP!!!!",
 		}
 		if req.Guess == "Tom Brady" {
 			RespondWithJSON(w, 200, cash)
 		} else {
-			RespondWithJSON(w, 200, map[string]string{"Answer": "LOL NAH"})
+			RespondWithJSON(w, 200, map[string]string{"Message": "LOL NAH"})
 		}
 	}
 }
@@ -60,24 +60,3 @@ func RespondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 func RespondWithError(w http.ResponseWriter, code int, message string) {
 	RespondWithJSON(w, code, map[string]string{"error": message})
 }
-
-
-// // BASIC
-// func (f fooHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-// 	cash := struct {
-// 		Animal string
-// 		Genus string
-// 		Species string
-// 		Type string
-// 	} {
-// 		"Goat", 
-// 		"Thomas", 
-// 		"Brady", 
-// 		"Rare AF",
-// 	}
-// 	response, _ := json.Marshal(cash)
-// 	w.Header().Set("Content-Type", "application/json")
-// 	w.Header().Set("Access-Control-Allow-Origin", "*")
-// 	w.WriteHeader(200)
-// 	w.Write(response)
-// }
